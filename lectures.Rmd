@@ -1,0 +1,35 @@
+---
+title: Презентации и данные
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    theme: flatly
+    highlight: haddock
+    include:
+      after_body: _footer.html
+    css: page_styles.css
+---
+
+
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = FALSE, message = FALSE, fig.align = "center")
+```
+
+
+# Опрятые данные (tidy data)
+
+Небольшая [презентация](Pres_tidy_data.html) о том, как должны быть подготовлены данные
+
+
+<br>
+<br>
+
+# Данные для работы
+
+Скачайте этот [архив](R_calc_for_school_CIN.zip). Распакуйте его в привычное для вас место. 
+
+Откойте **RStudio**: File -> Open project -> *найдите место, в которое вы распаковали архив*.

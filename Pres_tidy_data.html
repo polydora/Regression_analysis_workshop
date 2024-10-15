@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Плохие и хорошие данные</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Плохие и хорошие данные',
+                        subtitle: 'Литературное программирование',
+                useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Вадим Хайтов' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+  <link href="site_libs/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="site_libs/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="site_libs/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="site_libs/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            
+  </style>
+
+  <link rel="stylesheet" href="assets/my_styles.css" type="text/css" />
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Продукты литературного программирования</h2></hgroup><article  id="продукты-литературного-программирования">
+
+</article></slide><slide class=""><hgroup><h2>Виды &ldquo;литературных&rdquo; продуктов</h2></hgroup><article  id="виды-литературных-продуктов">
+
+<ul>
+<li>Тексты (статьи, монографии, отчеты)</li>
+<li>Презентации (Power Point, HTML-презентации, LaTex-презентации)</li>
+<li>Страницы интернет-сайтов с динамически меняющейся информацией (например, каталоги магазинов).</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Структура продукта</h2></hgroup><article  id="структура-продукта" class="columns-2 smaller">
+
+<p>Документ состоит из текста и вставленных в текст объектов (результатов обработки данных, иллюстрации).</p>
+
+<p><strong>Текст</strong><br/>- Заголовки разных уровней.<br/>- Абзацы (параграфы), состоящие из нескольких предложений. - Сноски - Специальные символы и формулы.</p>
+
+<p><strong>Иллюстрации</strong> - Изображения, которые не являются результатами обработки, выполненной с помощью программного кода, написанного автором документа (Фотографии, карты, штриховые рисунки и т.п.)</p>
+
+<p><strong>Результаты обработки данных</strong> - Визуализации результатов обработки данных (диаграммы, графики и т.п.). - Таблицы - Числовые значения в тексте - Библиографические описания</p>
+
+<img width="90%" src='images/Page_with_figure_and_table.png' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>Общая схема литературного программирования</h2></hgroup><article  id="общая-схема-литературного-программирования">
+
+<p><br> <br> <br></p>
+
+<img width="80%" src='images/Literature_proggramming_scheme.png' title=''/>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Данные</h2></hgroup><article  id="данные">
+
+</article></slide><slide class=""><hgroup><h2>Исходные данные часто приходится приводить в порядок</h2></hgroup><article  id="исходные-данные-часто-приходится-приводить-в-порядок">
+
+<p>На подготовку данных к анализу уходит до 80% времени.</p>
+
+<p>Существуют определенные правила предоставления данных.</p>
+
+<p>Данные, построенные в соответствии с этими требованиями, называются <strong>tidy data</strong>, или <strong>опрятные данные</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Проблемы начинаются уже в электронных таблицах</h2></hgroup><article  id="проблемы-начинаются-уже-в-электронных-таблицах">
+
+<img src='images/Excel_sheet.jpg' title=''/>
+
+</article></slide><slide class=""><hgroup><h2>Основные ошибки</h2></hgroup><article  id="основные-ошибки">
+
+<ul>
+<li><strong>Объединенные ячейки</strong></li>
+<li>Отсутствующие заголовки столбцов, вместо них стоят какие-то числа (или ничего не стоит) или слишком длинные имена заголовков</li>
+<li>В одной ячейке находится сразу несколько значений</li>
+<li>Разнородные данные в пределах одного столбца</li>
+<li>Нет стандартного обозначения пропущенных значений</li>
+<li>Разные группы значений кодируются цветовыми выделениями</li>
+<li>Вместе с первичными данными приведены результаты их обработки (подсчитаны средние, суммы и т.п.)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Принятые нормы</h2></hgroup><article  id="принятые-нормы">
+
+<ul>
+<li>Столбцы - переменные (variables)</li>
+<li>Строки - объекты (observations)</li>
+<li>В каждой переменной только один тип данных</li>
+<li>На месте пропущенных значений стоит специальный знак (в R принят <code>NA</code>)</li>
+</ul>
+
+<p><strong>При работе в Excel не должно быть никаких объединенных ячеек!</strong></p>
+
+</article></slide><slide class=""><hgroup><h2>Два формата представления данных</h2></hgroup><article  id="два-формата-представления-данных">
+
+<ul>
+<li><p>Широкий формат: данные максимально структурированы, каждая строка может нести информацию о многих элементарных объектах</p></li>
+<li><p>Длинный формат: данные минимально структурированы, каждая строка характеризует уникальный объект</p></li>
+</ul>
+
+<p>Из длинного формата легко получить широкий.</p>
+
+<p>Из широкого формата получить длинный заметно сложнее.</p>
+
+<p>Широкий формат хорош для отчетов, представления обобщенных результатов</p>
+
+<p>Длинный формат хорош для анализа</p>
+
+</article></slide><slide class=""><hgroup><h2>В каком формате представлены данные?</h2></hgroup><article  id="в-каком-формате-представлены-данные">
+
+<pre >##    Class    Sex   Age Survived Freq
+## 1    1st   Male Child       No    0
+## 2    2nd   Male Child       No    0
+## 3    3rd   Male Child       No   35
+## 4   Crew   Male Child       No    0
+## 5    1st Female Child       No    0
+## 6    2nd Female Child       No    0
+## 7    3rd Female Child       No   17
+## 8   Crew Female Child       No    0
+## 9    1st   Male Adult       No  118
+## 10   2nd   Male Adult       No  154
+## 11   3rd   Male Adult       No  387
+## 12  Crew   Male Adult       No  670
+## 13   1st Female Adult       No    4
+## 14   2nd Female Adult       No   13
+## 15   3rd Female Adult       No   89
+## 16  Crew Female Adult       No    3
+## 17   1st   Male Child      Yes    5
+## 18   2nd   Male Child      Yes   11
+## 19   3rd   Male Child      Yes   13
+## 20  Crew   Male Child      Yes    0</pre>
+
+</article></slide><slide class=""><hgroup><h2>Длинный формат данных</h2></hgroup><article  id="длинный-формат-данных">
+
+<pre >##    Class  Sex   Age Survived
+## 1    3rd Male Child       No
+## 2    3rd Male Child       No
+## 3    3rd Male Child       No
+## 4    3rd Male Child       No
+## 5    3rd Male Child       No
+## 6    3rd Male Child       No
+## 7    3rd Male Child       No
+## 8    3rd Male Child       No
+## 9    3rd Male Child       No
+## 10   3rd Male Child       No
+## 11   3rd Male Child       No
+## 12   3rd Male Child       No
+## 13   3rd Male Child       No
+## 14   3rd Male Child       No
+## 15   3rd Male Child       No
+## 16   3rd Male Child       No
+## 17   3rd Male Child       No
+## 18   3rd Male Child       No
+## 19   3rd Male Child       No
+## 20   3rd Male Child       No</pre>
+
+</article></slide><slide class=""><hgroup><h2>Take home message</h2></hgroup><article  id="take-home-message">
+
+<ul>
+<li>Документ - это комбинация текста, иллюстраций и производных анализа данных.</li>
+<li>Первичные данные должны быть оформлены, как опрятные данные (tidy data).</li>
+<li>При работе в электронных таблицах (Excel) надо соблюдать правила опрятных данных.</li>
+<li>Первичные данные могут быть представлены в широком и длинном форматах.</li>
+<li>Для обработки удобнее использовать длинный формат.</li>
+</ul></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+    if (window.Shiny) {
+      // Initialize slides when this script appears on the page, since it
+      // indicates that the <slides> markup has been fully loaded.
+      window.loadDeck();
+    }
+  })();
+</script>
+
+</body>
+</html>
