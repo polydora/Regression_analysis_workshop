@@ -27,8 +27,26 @@ opts_chunk$set(echo = FALSE, message = FALSE, fig.align = "center")
 <br>
 <br>
 
+## Пакеты, необходимые для работы
+
+```{r eval = FALSE, echo=TRUE}
+install.packages("readxl")
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("magrittr")
+install.packages("car")
+install.packages("cowplot")
+install.packages("lme4")
+install.packages("performance")
+```
+
+Эти пакеты необходимо установить до начала работы. 
+
+
 # Данные для работы
 
-Скачайте этот [архив](R_calc_for_school_CIN.zip). Распакуйте его в привычное для вас место. 
+Данные появятся перед началом мастер-класса.
 
-Откойте **RStudio**: File -> Open project -> *найдите место, в которое вы распаковали архив* -> *откройте предложенный проект*. 
+<!-- Скачайте этот [архив](R_calc_for_school_CIN.zip). Распакуйте его в привычное для вас место.  -->
+
+<!-- Откойте **RStudio**: File -> Open project -> *найдите место, в которое вы распаковали архив* -> *откройте предложенный проект*.  -->
