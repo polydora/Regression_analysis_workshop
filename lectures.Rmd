@@ -19,7 +19,6 @@ library(knitr)
 opts_chunk$set(echo = FALSE, message = FALSE, fig.align = "center")
 ```
 
-
 # Опрятые данные (tidy data)
 
 Небольшая [презентация](Pres_tidy_data.html) о том, как должны быть подготовлены данные
@@ -32,4 +31,4 @@ opts_chunk$set(echo = FALSE, message = FALSE, fig.align = "center")
 
 Скачайте этот [архив](R_calc_for_school_CIN.zip). Распакуйте его в привычное для вас место. 
 
-Откойте **RStudio**: File -> Open project -> *найдите место, в которое вы распаковали архив*.
+Откойте **RStudio**: File -> Open project -> *найдите место, в которое вы распаковали архив* -> *откройте предложенный проект*. 
