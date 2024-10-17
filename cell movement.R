@@ -12,6 +12,29 @@ library(performance)
 speed <- read_excel("Data/cell_mov_speed.xlsx", sheet = "tidy_data")
 area <- read_excel("Data/cell_mov_speed.xlsx", sheet = "cristal_area")
 
+# Характеристика кристаллов матриц ####
+
+
+ggplot(area, aes(x = Area)) +
+  geom_histogram() +
+  geom_vline(
+    data = . %>%
+  group_by(Well) %>%
+  summarise(line = median(Area)),
+mapping = aes(xintercept = line)
+) +
+  geom_vline(
+    data = . %>%
+      group_by(Well) %>%
+      summarise(line = mean(Area)),
+    mapping = aes(xintercept = line), 
+    color = "blue"
+  ) +
+  facet_wrap(~ Well)
+  
+
+############
+
 area_summ <- 
 area  %>% 
   group_by(Well) %>% 
@@ -23,13 +46,14 @@ area  %>%
 all_data <- 
 merge(area_summ, speed)
 
-######### Предварительный анализ ###############
+######### Предварительный (разведочный) анализ ###############
 
 # Думаем о дизайне сбора материала 
 
 # Смотрим на то, как оформлен датасет. Приводим данные в соответсвии с требованями tidyverse
 
 # Проверяем нет ли пропущенных значений (NA). Если есть, то принмаем решение, как с нми быть.
+
 
 
 # Смотрим на связи между переменными, вошедшими в датасет
@@ -40,7 +64,7 @@ all_data %>%
   pairs(.)
 
 
-# Ищем отскоки (выбросы, outliers)
+# Ищем отскоки (выбросы, outliers): строим диаграммы Кливленда
 
 all_data %>% 
   ggplot(aes(y = 1:nrow(.), x = Velocity)) + 
@@ -66,8 +90,8 @@ summary(Model) #СУПЕР!!! Бежим писать статью в Nature?
 
 
 # Условия применимости линейной регрессии
-# 1. Линейная связь между зависимой переменной (Y) и предикторами (X)
-# 2. Независимость значений Y друг от друга
+# 1. Независимость значений Y друг от друга 
+# 2. Линейная связь между зависимой переменной (Y) и предикторами (X) 
 # 3. Нормальное распределение Y для каждого уровня значений X
 # 4. Гомогенность дисперсий Y для каждого уровня значений X
 # 5. Отсутствие коллинеарности предикторов (для можественной регрессии)
@@ -121,15 +145,20 @@ ggplot(aes(x = 1:nrow(.), y = .cooksd)) +
 Model_diagnostic %$% 
 car::qqPlot(.stdresid)
 
+
+# То же смаое с помощью ggplot
 Model_diagnostic %>% 
 ggplot(aes(sample = .stdresid)) + 
   stat_qq() + 
   stat_qq_line() + 
   labs(x = "Квантили стадартизованного нормального распределения", y = "Квантили в распределении стандартизованных остатков")
   
+
+# Частотное распределение остатков
 Model_diagnostic %>%
   ggplot(aes(x = .stdresid)) +
   geom_histogram()
+
 
 # Самый главный график: график рассеяния остатков
 
@@ -153,7 +182,12 @@ fit %>%
   fortify() %>%   
 # Вставьте недостающий кусок кода
 
-
+  ggplot(aes(x = .fitted, y = .stdresid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth()
+  
+  
 car::residualPlot(fit, pch = ".")
 
 # В графике остатков не должно быть паттернов! В хорошей модели остатки - это просто ШУМ вокруг нуля
@@ -193,16 +227,20 @@ gg_resid <-
 ggplot(data = mod1_diag, aes(x = .fitted, y = .stdresid)) + 
   geom_point() + 
   geom_hline(yintercept = 0)
-gg_resid
+
+gg_resid 
 
 # 3) Графики остатков от предикторов в модели (желательно, включить и график зависимости остатков от тех предикторов, которые не включены в модель)
-gg_resid + aes(x = x1)
+gg_resid + aes(x = x1) 
 
 # 4) Квантильный график остатков
 qqPlot(mod1, id = FALSE)
 
 # В чем проблема?
 gg_resid + geom_smooth()
+
+
+
 
 
 # --------------------------------------------------------
@@ -213,8 +251,8 @@ gg_resid + geom_smooth()
 set.seed(7657674)
 x2 <- runif(1000, 1, 100)
 b_0 <- 100;  b_1 <- 20
-h <- function(x) x^0.5
-eps <- rnorm(1000, 0, h(x2))
+h <- function(x) x^0.9
+eps <- rnorm(1000, 0, h(x2^1.1))
 y2 <- b_0 + b_1 * x2 + eps
 dat2 <- data.frame(x2, y2)
 ######################
@@ -356,6 +394,8 @@ ggplot(dat5, aes(x=x2, y=y)) + geom_point() + geom_smooth(method="lm")
 
 mod5 <- lm(y ~ x1 + x2, data = dat5)
 
+vif(mod5)
+
 summary(mod5) #Можно ли доверять этим резултатам?
 
 # Данные для графиков остатков
@@ -413,10 +453,9 @@ gg_resid <- ggplot(data = mod6_diag, aes(x = .fitted, y = .stdresid)) +
 gg_resid 
 
 # 3) Графики остатков от предикторов в модели и не в модели
-gg_resid + aes(x = V2)
+gg_resid + aes(x = V2) 
 
 gg_resid + aes(x = dat6$Year) 
-
 
 # 4) Квантильный график остатков
 qqPlot(mod6, id = FALSE)
@@ -529,7 +568,7 @@ predict(Model_control, se.fit = TRUE)$fit [1]
 predict(Model_control, se.fit = TRUE)$se.fit [1]
 
 
-mean(cont$Velocity)
+mean(cont$Velocity) 
 sd(cont$Velocity)/sqrt(nrow(cont))
 
 t_crit_cont <- qt(p = 0.975, df = Model_control$df.residual)
@@ -573,7 +612,8 @@ icc(Model_ri)
 
 # Роль случайного фактора не столь высока!
 
-##################
-# But not today! #
-##################
+###########################
+# LMM!!! But not today... #
+###########################
+
 
